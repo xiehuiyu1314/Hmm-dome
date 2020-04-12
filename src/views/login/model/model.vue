@@ -78,7 +78,7 @@ export default {
       },
       rules: {
         // 表单验证
-        avatar: [{ required: true, message: "头像要上传哦", targger: "blur" }],
+        avatar: [{ required: true, message: "头像要上传哦", trigger: "blur" }],
         username: [{ required: true, message: "请输入昵称", taegger: "blur" }],
         email: [
           { required: true, message: "请输入邮箱", taegger: "blur" },
@@ -91,11 +91,11 @@ export default {
                 callback("邮箱格式不正确");
               }
             },
-            targger: "change"
+            trigger: "change"
           }
         ],
         phone: [
-          { required: true, message: "请输入手机号码", targger: "blur" },
+          { required: true, message: "请输入手机号码", trigger: "blur" },
           {
             validator: (rule, value, callback) => {
               let reg = /^(0|86|17951)?(13[0-9]|15[012356789]|166|17[3678]|18[0-9]|14[57])[0-9]{8}$/;
@@ -105,25 +105,25 @@ export default {
                 callback("手机格式不正确");
               }
             },
-            targger: "change"
+            trigger: "change"
           }
         ],
         password: [
-          { required: true, message: "请输入密码", targger: "blur" },
+          { required: true, message: "请输入密码", trigger: "blur" },
           {
             min: 6,
             max: 12,
             message: "密码长度不够哦",
-            targger: "change"
+            trigger: "change"
           }
         ],
         code: [
-          { required: true, message: "请输入图形验证码", targger: "blur" },
-          { min: 4, max: 4, message: "请输入4位图形验证码", targger: "change" }
+          { required: true, message: "请输入图形验证码", trigger: "blur" },
+          { min: 4, max: 4, message: "请输入4位图形验证码", trigger: "change" }
         ],
         rcode: [
-          { required: true, message: "强输入手机验证码", targger: "blur" },
-          { min: 4, max: 4, message: "请输入4位手机验证码", targger: "change" }
+          { required: true, message: "强输入手机验证码", trigger: "blur" },
+          { min: 4, max: 4, message: "请输入4位手机验证码", trigger: "change" }
         ]
       }
     };
