@@ -41,18 +41,24 @@
           <el-button class="btn" type="primary">登录</el-button>
         </el-form-item>
         <el-form-item>
-          <el-button class="btn" type="primary">注册</el-button>
+          <el-button class="btn" type="primary" @click="model">注册</el-button>
         </el-form-item>
       </el-form>
     </div>
     <div class="right">
       <img src="@/assets/images/login_banner_ele.png" alt />
     </div>
+    <!-- 模态框 -->
+    <model ref="model" />>
   </div>
 </template>
 
 <script>
+import model from "@/views/login/model/model.vue";
 export default {
+  components: {
+    model
+  },
   data() {
     return {
       form: {
@@ -60,6 +66,11 @@ export default {
         password: ""
       }
     };
+  },
+  methods: {
+    model() {
+      this.$refs.model.dialogFormVisible = true;
+    }
   }
 };
 </script>
