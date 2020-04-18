@@ -44,7 +44,10 @@
               <el-input v-model="form.rcode"></el-input>
             </el-col>
             <el-col :span="7" :offset="1">
-              <el-button @click="rcode">获取用户验证码</el-button>
+              <el-button
+                @click="rcode"
+                :disabled="isDisabled"
+              >{{ isDisabled? "倒计时"+time+"秒":"获取用户验证码"}}</el-button>
             </el-col>
           </el-row>
         </el-form-item>
@@ -62,6 +65,8 @@ import { getCode, register } from "@/api/model.js";
 export default {
   data() {
     return {
+      time: 20, //倒计时
+      isDisabled: false,
       codeImg: process.env.VUE_APP_URL + "/captcha?type=sendsms",
       url: process.env.VUE_APP_URL + "/uploads",
       imageUrl: "",
@@ -138,8 +143,17 @@ export default {
         }
       });
       if (flag) {
+        this.isDisabled = true;
         getCode({ code: this.form.code, phone: this.form.phone }).then(res => {
           this.$message.success(res.data.captcha + "");
+          let timeID = setInterval(() => {
+            if (this.time >= 2) {
+              this.time--;
+            } else {
+              clearInterval(timeID);
+              this.isDisabled = false;
+            }
+          }, 1000);
         });
       }
     },

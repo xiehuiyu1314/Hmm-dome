@@ -1,5 +1,7 @@
 import axios from "axios"
 import { Message } from 'element-ui';
+import { getToken, removeToken } from "@/utils/token.js"
+import router from "@/router/router.js"
 
 const http = axios.create({
   baseURL: process.env.VUE_APP_URL,
@@ -9,6 +11,8 @@ const http = axios.create({
 
 //请求拦截
 http.interceptors.request.use(config => {
+  //给所有请求头设置token
+  config.headers.token = getToken()
   return config
 }, function (err) {
   console.log(err)
@@ -20,8 +24,8 @@ http.interceptors.response.use(res => {
     return res.data;
   } else if (res.data.code == 206) {
     //没有token直接去登录页
-    // removeToken();
-    // router.push('/');
+    removeToken();
+    router.push('/');
     return Message.warning('你还未登录或登录失效');
   } else {
     Message.error(res.data.message);
